@@ -79,25 +79,17 @@ else:
         event_title = event_title.replace("/", "")
         log.info(u'starting with {}'.format(event_title))
         this_handle = browser.current_window_handle
-        # _new_tab(this_event, browser)
         this_event.click()
-        # handles = browser.window_handles
-        # handles.remove(this_handle)
-        # assert len(handles) == 1
-        # browser.switch_to.window(handles[0])
         links = filter(
             lambda a: a.get_attribute("text").endswith(".pdf"),
             browser.find_elements_by_css_selector("a")
         )
         if len(links) == 0:
-            # browser.close()
-            # browser.switch_to.window(this_handle)
             browser.back()
             continue
         _mkdir(os.path.join(path, event_title))
         for a in links:
             download = True
-            # head = requests.head(a.get_attribute('href'), stream=True).headers  # noqa
             fpath = os.path.join(
                 path,
                 event_title,
@@ -126,20 +118,6 @@ else:
                             foo = False
                             continue
                         foo = False
-#             m = rg.search(head['content-disposition'])
-#             if m:
-#                 fname = m.group(1).replace('"', '')
-#                 if os.path.exists(os.path.join(path, event_title, fname)):
-#                     if os.stat(fpath).st_size / float(head['content-length']) > 0.98:  # noqa
-#                         log.info("no big change in file size, keeping old")
-#                         continue
-#                     else:
-#                         log.info("file exists, but downloading ({:.1f} KB != {:.1f} KB)".format(  # noqa
-#                             float(os.stat(fpath).st_size) / 1024,
-#                             float(head['content-length']) / 1024
-#                         ))
-#                 else:
-#                     pass  # downloading because doesn't exist now
             if download:
                 response = requests.get(a.get_attribute("href"), stream=True)
                 with open(fpath, 'wb') as handle:
@@ -148,8 +126,6 @@ else:
                             handle.write(chunk)
                         else:
                             tmp = chunk
-        # browser.close()
-        # browser.switch_to.window(this_handle)
         browser.back()
 
 print 'DONE'

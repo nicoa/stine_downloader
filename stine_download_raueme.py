@@ -154,32 +154,12 @@ for room_type in ['Hörs', 'Seminarräum']:
             this_handle = browser.current_window_handle
             this_room.click()
 
-            # _new_tab(this_room, browser)
-            # handles = browser.window_handles
-            # handles.remove(this_handle)
-            # assert len(handles) == 1
-            # browser.switch_to.window(handles[0])
             cws = browser.find_element_by_name('wk').find_elements_by_tag_name('option')  # noqa
             idx_actual = cws.index(filter(lambda e: e.is_selected(), cws)[0])
             cw = cws[idx_actual]
             log.info("Selecting {}...".format(cw.text))
             table = browser.find_element_by_id('weekTableRoomplan')
             plot_timetable(table)
-            # for cw in map(lambda e: e.text, cws):
-            #     log.info("Selecting {}...".format(cw))
-            #     filter(lambda e: e.text == cw,  browser.find_element_by_name('wk').find_elements_by_tag_name('option'))[0].click()  # noqa
-
-            #     table =  browser.find_element_by_id('weekTableRoomplan')
-            #     # with open("{}{}/{}.html".format(
-            #     #         path,
-            #     #     'html_tables',
-            #     #     table.find_element_by_tag_name('caption').text.replace('.', '').replace("/", "_").replace(' ', '_').split('Woche_von')[0]  # noqa
-            #     #         ), 'w') as fh:
-            #     #     fh.write(table.get_attribute('innerHTML').encode('utf-8'))  # noqa
-
-            #     plot_timetable(table)
-            # browser.close()
             browser.back()
-            # browser.switch_to.window(this_handle)
 
 print 'DONE'
