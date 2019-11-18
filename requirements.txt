@@ -1,0 +1,11 @@
+dotenv
+recursive_dictionary
+selenium
+difflib
+ipywidgets
+locale
+logging
+numpy
+os
+sys
+time
